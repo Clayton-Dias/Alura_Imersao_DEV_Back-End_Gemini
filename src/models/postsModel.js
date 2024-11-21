@@ -21,3 +21,17 @@ export async function getTodosPosts() {
     // e 'toArray()' converte os resultados para um array.
     return colecao.find().toArray();
 }
+
+
+// Função assíncrona que cria um novo post no banco de dados.
+export async function criarPost(novoPost) {
+    // Conexão com o banco de dados "imersao-instabytes".
+    const db = conexao.db("imersao-instabytes");
+
+    // Acessa a coleção "posts" do banco de dados.
+    const colecao = db.collection("posts");
+
+    // Insere o novo post na coleção "posts" e retorna a resposta da operação de inserção.
+    return colecao.insertOne(novoPost);
+}
+
