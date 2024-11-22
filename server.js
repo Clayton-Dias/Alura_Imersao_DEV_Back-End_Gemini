@@ -7,7 +7,8 @@ import routes from "./src/routes/postsroutes.js";
 // Cria uma nova instância da aplicação Express.
 const app = express();
 
-app.use(express.static("uploads"))
+// Configura o Express para servir arquivos estáticos da pasta "uploads" (útil para enviar imagens, documentos, etc.).
+app.use(express.static("uploads"));
 
 // Chama a função 'routes', passando o objeto 'app' como parâmetro para definir as rotas.
 routes(app);
@@ -17,8 +18,3 @@ app.listen(3000, () => {
     // Exibe uma mensagem no console para indicar que o servidor está ativo e escutando.
     console.log("Servidor escutando...") 
 });
-
-
-
-
-
