@@ -4,11 +4,13 @@ import express from "express";
 // Importa o 'multer', que é uma biblioteca para lidar com o upload de arquivos em requisições multipart/form-data.
 import multer from "multer";
 
+// Importa o módulo 'cors' para permitir requisições de diferentes origens (Cross-Origin Resource Sharing).
 import cors from "cors";
 
+// Configurações do CORS. Define que as requisições serão permitidas apenas do domínio 'http://localhost:8000'.
 const corsOptions = {
-    origin: "http://localhost:8000",
-    optionsSucessStatus: 200
+    origin: "http://localhost:8000", // Origem permitida para acessar a API.
+    optionsSucessStatus: 200 // Status de sucesso para navegadores mais antigos.
 }
 
 // Importa as funções de controle de posts, que lidam com a lógica de exibição, criação e upload de posts.
@@ -35,7 +37,7 @@ const routes = (app) => {
     // Middleware que permite ao Express entender as requisições com corpo em formato JSON.
     app.use(express.json());
 
-
+    // Permite requisições de origens específicas (usando as configurações definidas acima).
     app.use(cors(corsOptions));
 
     // Define uma rota GET para o endpoint "/posts". Quando a URL "/posts" for acessada, a função 'listarPosts' será chamada.
@@ -47,7 +49,8 @@ const routes = (app) => {
     // Define uma rota POST para o endpoint "/upload". Quando um arquivo for enviado com a chave 'imagem' no formulário, o multer faz o upload e chama a função 'uploadImagem'.
     app.post("/upload", upload.single("imagem"), uploadImagem);
 
-    app.put("/upload/:id", atualizarNovoPost)
+    // Define uma rota PUT para o endpoint "/upload/:id". Esta rota será utilizada para atualizar um post existente (usando o ID do post na URL).
+    app.put("/upload/:id", atualizarNovoPost);
 }
 
 // Exporta a função 'routes' para que ela possa ser utilizada em outras partes da aplicação (geralmente no arquivo principal da aplicação, onde o servidor é iniciado).

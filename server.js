@@ -1,20 +1,28 @@
-// Importa o módulo Express, o framework web Node.js para criar a aplicação.
+// Importa o módulo 'express', que é um framework web do Node.js utilizado para criar e gerenciar a aplicação web.
 import express from "express"; 
 
-// Importa as rotas definidas no arquivo 'postsroutes.js' que contêm as definições das rotas da aplicação.
+// Importa o arquivo 'postsroutes.js', que contém as definições das rotas para a aplicação.
+// O arquivo de rotas define como a aplicação irá responder a diferentes URLs e tipos de requisições HTTP.
 import routes from "./src/routes/postsroutes.js";
 
-// Cria uma nova instância da aplicação Express.
+// Cria uma nova instância do aplicativo Express, que será usada para configurar e iniciar o servidor.
 const app = express();
 
-// Configura o Express para servir arquivos estáticos da pasta "uploads" (útil para enviar imagens, documentos, etc.).
+// Configura o Express para servir arquivos estáticos da pasta 'uploads'.
+// Isso significa que qualquer arquivo (como imagens, documentos, etc.) colocado na pasta 'uploads' 
+// pode ser acessado diretamente via URL pelo cliente (por exemplo, um navegador ou uma aplicação front-end).
 app.use(express.static("uploads"));
 
-// Chama a função 'routes', passando o objeto 'app' como parâmetro para definir as rotas.
+// Chama a função 'routes', passando a instância da aplicação 'app' como parâmetro.
+// A função 'routes' define as rotas da aplicação, associando as URLs a funções de controle que 
+// irão tratar as requisições HTTP (GET, POST, etc.).
 routes(app);
 
-// A aplicação Express começa a escutar as requisições na porta 3000.
+// Inicia o servidor Express para escutar as requisições na porta 3000.
+// Quando o servidor começa a escutar, ele fica aguardando que os usuários enviem requisições 
+// para o endereço localhost:3000 ou IP correspondente.
 app.listen(3000, () => {
-    // Exibe uma mensagem no console para indicar que o servidor está ativo e escutando.
+    // Exibe uma mensagem no console para confirmar que o servidor está ativo e aceitando requisições.
     console.log("Servidor escutando...") 
 });
+

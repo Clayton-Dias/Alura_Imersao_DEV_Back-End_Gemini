@@ -4,8 +4,8 @@ import { getTodosPosts, criarPost, atualizarPost } from "../models/postsModel.js
 // Importa o módulo 'fs' (File System) para manipulação de arquivos no sistema local.
 import fs from "fs";
 
+// Importa a função para gerar uma descrição da imagem usando o serviço Gemini.
 import gerarDescricaoComGemini from "../services/geminiService.js"
-
 
 // Função assíncrona 'listarPosts' para lidar com a requisição GET e listar os posts.
 export async function listarPosts(req, res) {
@@ -62,33 +62,41 @@ export async function uploadImagem(req, res) {
     }
 }
 
-
+// Função assíncrona 'atualizarNovoPost' para atualizar um post existente.
 export async function atualizarNovoPost(req, res) {
+    // Obtém o ID do post a ser atualizado da URL da requisição (params).
     const id = req.params.id;
+    // Define a URL da imagem do post.
     const urlImagem = `http://localhost:3000/${id}.png`
 
+    // Cria um objeto com os dados para atualizar o post.
     const post = {
         imgUrl: urlImagem,
-        descricao: req.body.descricao,
-        alt: req.body.alt
+        descricao: req.body.descricao,  // Descrição do post recebida da requisição.
+        alt: req.body.alt // Texto alternativo para a imagem, também recebido da requisição.
     }
 
     try {
-
+        // Lê o arquivo de imagem usando o id para localizar a imagem no diretório 'uploads'.
         const imgBuffer = fs.readFileSync(`uploads/${id}.png`);
 
+        // Chama o serviço 'gerarDescricaoComGemini' para gerar uma descrição a partir da imagem.
         const descricao = await gerarDescricaoComGemini(imgBuffer);
 
+        // Atualiza o objeto do post com a descrição gerada pela Gemini.
         const post = {
             imgUrl: urlImagem,
             descricao: descricao,
             alt: req.body.alt
         }
 
+        // Chama a função 'atualizarPost' para atualizar o post no banco de dados.
         const postCriado = await atualizarPost(id, post);
 
+        // Envia uma resposta HTTP com status 200 (OK) e o post atualizado no formato JSON.
         res.status(200).json(postCriado);
     } catch (erro) {
+        // Caso ocorra um erro, loga o erro no console e envia uma resposta de erro com status 500.
         console.error(erro.message);
         res.status(500).json({ "Erro": "Falha na requisição" });
     }
