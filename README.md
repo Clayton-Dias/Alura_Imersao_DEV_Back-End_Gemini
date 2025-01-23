@@ -97,15 +97,3 @@ O projeto está estruturado da seguinte forma:
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
 ```
-
-### Explicação do README:
-
-1. **Título e Descrição**: Inicia com o nome do projeto e uma breve descrição das suas funcionalidades.
-2. **Pré-requisitos**: Lista as ferramentas e serviços necessários para rodar o projeto, como Node.js, MongoDB e a chave da API do Google Gemini.
-3. **Como Rodar o Projeto**: Passos para clonar o repositório, instalar dependências, configurar variáveis de ambiente e rodar o servidor.
-4. **Endpoints**: Descrição dos endpoints da API para interagir com os dados de posts.
-5. **Estrutura do Projeto**: Um diagrama da estrutura do projeto, destacando as pastas e seus conteúdos.
-6. **Dependências**: Enumera as bibliotecas usadas no projeto.
-7. **Contribuição**: Orientações sobre como contribuir para o projeto.
-8. **Licença**: Indica a licença sob a qual o projeto é distribuído (MIT, no caso).
-
